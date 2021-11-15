@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Loby.Core
+namespace Loby
 {
     public static class EnumerableExtensions
     {

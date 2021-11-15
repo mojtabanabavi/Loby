@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace Loby.Core
+namespace Loby
 {
     /// <summary>
     /// An implementation of PBKDF2 hash algorithm.

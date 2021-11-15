@@ -1,4 +1,4 @@
-﻿namespace Loby.Core
+﻿namespace Loby
 {
     public static class ObjectExtensions
     {

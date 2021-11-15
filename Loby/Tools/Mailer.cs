@@ -5,7 +5,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Loby.Core
+namespace Loby
 {
     /// <summary>
     /// Allows applications to send email by using the 

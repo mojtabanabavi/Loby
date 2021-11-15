@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.Json;
 using System.Xml.Serialization;
 
-namespace Loby.Core
+namespace Loby
 {
     /// <summary>
     /// Provides functionality to serialize objects or value types to JSON, XML and to deserialize

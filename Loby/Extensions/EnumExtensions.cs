@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
 
-namespace Loby.Core
+namespace Loby
 {
     public static class EnumExtensions
     {

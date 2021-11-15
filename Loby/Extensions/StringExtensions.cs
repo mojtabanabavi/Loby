@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Loby.Core
+namespace Loby
 {
     public static class StringExtensions
     {
