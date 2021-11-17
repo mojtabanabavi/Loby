@@ -364,6 +364,31 @@ namespace Loby
 
         #endregion;
 
+        #region Shuffle
+
+        /// <summary>
+        /// Shuffles the location of elements in a list.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type of list objects.
+        /// </typeparam>
+        /// <param name="list">
+        /// The list to be shuffled.
+        /// </param>
+        /// <returns>
+        /// Returns a list whose elements are positioned differently
+        /// from the first case.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// list is null.
+        /// </exception>
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
+        {
+            return list.OrderBy(x => RandomInt());
+        }
+
+        #endregion;
+
         #region Select
 
         /// <summary>
@@ -381,7 +406,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// <paramref name="values"/> is null.
         /// </exception>
-        public static Type SelectRandom<Type>(params Type[] values)
+        public static Type RandomSelect<Type>(params Type[] values)
         {
             if (values == null)
             {
@@ -406,7 +431,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// <paramref name="values"/> is null.
         /// </exception>
-        public static Type SelectRandom<Type>(IEnumerable<Type> values)
+        public static Type RandomSelect<Type>(IEnumerable<Type> values)
         {
             if (values == null)
             {
@@ -434,7 +459,7 @@ namespace Loby
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="count"/> is less than zero (0) or more than <paramref name="values"/> length.
         /// </exception>
-        public static IEnumerable<Type> SelectRandom<Type>(IEnumerable<Type> values, int count)
+        public static IEnumerable<Type> RandomSelect<Type>(IEnumerable<Type> values, int count)
         {
             if (values == null)
             {
