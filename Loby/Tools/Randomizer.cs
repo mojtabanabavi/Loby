@@ -364,6 +364,90 @@ namespace Loby
 
         #endregion;
 
+        #region Word
+
+        private const string LoremIpsum = "lorem ipsum amet, pellentesque mattis accumsan maximus etiam mollis ligula non iaculis ornare mauris efficitur ex eu rhoncus aliquam in hac habitasse platea dictumst maecenas ultrices, purus at venenatis auctor, sem nulla urna, molestie nisi mi a ut euismod nibh id libero lacinia, sit amet lacinia lectus viverra donec scelerisque dictum enim, dignissim dolor cursus morbi rhoncus, elementum magna sed, sed velit consectetur adipiscing elit curabitur nulla, eleifend vel, tempor metus phasellus vel pulvinar, lobortis quis, nullam felis orci congue vitae augue nisi, tincidunt id, posuere fermentum facilisis ultricies mi, nisl fusce neque, vulputate integer tortor tempus praesent proin quis nunc massa congue, quam auctor eros placerat eros, leo nec, sapien egestas duis feugiat, vestibulum porttitor, odio sollicitudin arcu, et aenean sagittis ante urna fringilla, risus et, vivamus semper nibh, eget finibus est laoreet justo commodo sagittis, vitae, nunc, diam ac, tellus posuere, condimentum enim tellus, faucibus suscipit ac nec turpis interdum malesuada fames primis quisque pretium ex, feugiat porttitor massa, vehicula dapibus blandit, hendrerit elit, aliquet nam orci, fringilla blandit ullamcorper mauris, ultrices consequat tempor, convallis gravida sodales volutpat finibus, neque pulvinar varius, porta laoreet, eu, ligula, porta, placerat, lacus pharetra erat bibendum leo, tristique cras rutrum at, dui tortor, in, varius arcu interdum, vestibulum, magna, ante, imperdiet erat, luctus odio, non, dui, volutpat, bibendum, quam, euismod, mattis, class aptent taciti sociosqu ad litora torquent per conubia nostra, inceptos himenaeos suspendisse lorem, a, sem, eleifend, commodo, dolor, cursus, luctus, lectus,";
+
+        /// <summary>
+        /// Returns a random word.
+        /// </summary>
+        /// <returns>
+        /// A string that represents a random word.
+        /// </returns>
+        public static string RandomWord()
+        {
+            return RandomWords(1, 1);
+        }
+
+        /// <summary>
+        /// Returns a random string of a specified number of words.
+        /// </summary>
+        /// <param name="count">
+        /// Number of words to be generated.
+        /// </param>
+        /// <param name="separatorCharacter">
+        /// A character that is placed between words.
+        /// </param>
+        /// <returns>
+        /// A string containing words separated by <paramref name="separatorCharacter"/>.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// count is less than 0.
+        /// </exception>
+        public static string RandomWords(int count, char separatorCharacter = '_')
+        {
+            if (count < 0)
+            {
+                throw new ArgumentOutOfRangeException("min count is less than 0.");
+            }
+
+            return RandomWords(count, count, separatorCharacter);
+        }
+
+        /// <summary>
+        /// Returns a random string of words that count of them 
+        /// is in a certain range.
+        /// </summary>
+        /// <param name="minCount">
+        /// Minimum number of words.
+        /// </param>
+        /// <param name="maxCount">
+        /// Maximum number of words.
+        /// </param>
+        /// <param name="separatorCharacter">
+        /// A character that is placed between words.
+        /// </param>
+        /// <returns>
+        /// A random string of words that count of them is greater than 
+        /// or equal to <paramref name="minCount"/> and less than <paramref name="maxCount"/>;
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// min count is less than 0 -or- min count is greater than max count.
+        /// </exception>
+        public static string RandomWords(int minCount, int maxCount, char separatorCharacter = '_')
+        {
+            if (minCount < 0)
+            {
+                throw new ArgumentOutOfRangeException("min count is less than 0.");
+            }
+
+            if (minCount > maxCount)
+            {
+                throw new ArgumentOutOfRangeException("min count is greater than max count.");
+            }
+
+            var randomWords = LoremIpsum
+                .Replace(",", string.Empty)
+                .Split(" ")
+                .Shuffle()
+                .Take(RandomInt(minCount, maxCount))
+                .Join(separatorCharacter);
+
+            return randomWords;
+        }
+
+        #endregion;
+
         #region Shuffle
 
         /// <summary>
