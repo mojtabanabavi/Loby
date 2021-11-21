@@ -53,6 +53,27 @@ namespace Loby
             return list.IsNull() || list.IsEmpty();
         }
 
+        /// <summary>
+        /// Shuffles the location of elements in a list.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type of list objects.
+        /// </typeparam>
+        /// <param name="list">
+        /// The list to be shuffled.
+        /// </param>
+        /// <returns>
+        /// Returns a list whose elements are positioned differently
+        /// from the first case.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// list is null.
+        /// </exception>
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
+        {
+            return list.OrderBy(x => Randomizer.RandomInt());
+        }
+
         #endregion;
 
         #region Utils

@@ -10,7 +10,7 @@ namespace Loby
     /// Represents a pseudo-random data generator, which is an algorithm that produces
     /// a sequence of data that meet certain statistical requirements for randomness.
     /// </summary>
-    public static class Randomizer
+    public class Randomizer
     {
         #region Bytes
 
@@ -444,31 +444,6 @@ namespace Loby
                 .Join(separatorCharacter);
 
             return randomWords;
-        }
-
-        #endregion;
-
-        #region Shuffle
-
-        /// <summary>
-        /// Shuffles the location of elements in a list.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of list objects.
-        /// </typeparam>
-        /// <param name="list">
-        /// The list to be shuffled.
-        /// </param>
-        /// <returns>
-        /// Returns a list whose elements are positioned differently
-        /// from the first case.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// list is null.
-        /// </exception>
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
-        {
-            return list.OrderBy(x => RandomInt());
         }
 
         #endregion;
