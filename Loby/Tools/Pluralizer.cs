@@ -5,10 +5,19 @@ using System.Text.RegularExpressions;
 
 namespace Loby
 {
+    /// <summary>
+    /// Provides functionality to pluralize and singularize any english word.
+    /// </summary>
     public class Pluralizer
     {
         #region Rules
 
+        /// <summary>
+        /// Returns a set of words that are uncountable.
+        /// </summary>
+        /// <returns>
+        /// Returns a set of words that cannot be pluralized and singularized.
+        /// </returns>
         protected static List<string> GetUncountables()
         {
             var list = new List<string>
@@ -110,6 +119,13 @@ namespace Loby
             return list;
         }
 
+        /// <summary>
+        /// Returns a set of rules needed to make words plurals.
+        /// </summary>
+        /// <returns>
+        /// A dictionary that contains rules for converting singular words into 
+        /// plurals.
+        /// </returns>
         protected static Dictionary<string, string> GetPluralsRules()
         {
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -151,6 +167,13 @@ namespace Loby
             return dictionary;
         }
 
+        /// <summary>
+        /// Returns a set of rules needed to make words singular.
+        /// </summary>
+        /// <returns>
+        /// A dictionary that contains Rules for converting plural words to 
+        /// singular.
+        /// </returns>
         protected static Dictionary<string, string> GetSingularsRules()
         {
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -189,6 +212,13 @@ namespace Loby
             return dictionary;
         }
 
+        /// <summary>
+        /// A set of words that have an alternative value to get plural.
+        /// </summary>
+        /// <returns>
+        /// Returns a dictionary that singular words are used as keys and 
+        /// plural words are given as values.
+        /// </returns>
         protected static Dictionary<string, string> GetIrregularSingularReplacements()
         {
             var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -255,6 +285,13 @@ namespace Loby
             return dictionary;
         }
 
+        /// <summary>
+        /// A set of words that have an alternative value to get singular.
+        /// </summary>
+        /// <returns>
+        /// Returns a dictionary that plural words are used as keys and 
+        /// singular words are given as values.
+        /// </returns>
         protected static Dictionary<string, string> GetIrregularPluralReplacements()
         {
             var dictionary = new Dictionary<string, string>();
@@ -274,6 +311,19 @@ namespace Loby
 
         #region Protected
 
+        /// <summary>
+        /// Search patterns in the given text and replace them with 
+        /// the values ​​intended for it.
+        /// </summary>
+        /// <param name="value">
+        /// A string that the rules will apply on it.
+        /// </param>
+        /// <param name="rules">
+        /// A set of rules for replacing words as dictionary.
+        /// </param>
+        /// <returns>
+        /// A string in which rules have been applied on it.
+        /// </returns>
         protected static string ApplyRules(string value, Dictionary<string, string> rules)
         {
             foreach (var rule in rules.Reverse())
@@ -291,6 +341,15 @@ namespace Loby
 
         #region Methods
 
+        /// <summary>
+        /// Converts a singular word into plural.
+        /// </summary>
+        /// <param name="value">
+        /// The word to be pluralized.
+        /// </param>
+        /// <returns>
+        /// A string that is the plural form of <paramref name="value"/>.
+        /// </returns>
         public static string Pluralize(string value)
         {
             if (GetUncountables().Contains(value))
@@ -311,6 +370,15 @@ namespace Loby
             return ApplyRules(value, GetPluralsRules());
         }
 
+        /// <summary>
+        /// Converts a plural word into singular.
+        /// </summary>
+        /// <param name="value">
+        /// The word to be singularized.
+        /// </param>
+        /// <returns>
+        /// A string that is the singular form of <paramref name="value"/>.
+        /// </returns>
         public static string Singularize(string value)
         {
             if (GetUncountables().Contains(value))
