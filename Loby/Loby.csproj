@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Description>Lobby is an open-source, cross-platform and lightweight library (smaller than 50 kb) for .Net  that includes a set of tools and extensions for easy and fast development.
+		<Description>Lobby is an open-source and lightweight library (smaller than 50 kb) for .Net  that includes a set of tools and extensions for easy and fast development.
 		</Description>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<Authors>Mojtaba Nabavi</Authors>
@@ -9,15 +9,16 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/mojtabanabavi/loby</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<Version>1.0.0</Version>
+		<Version>1.1.0</Version>
 		<Company />
-		<Copyright>https://github.com/mojtabanabavi/loby/blob/master/LICENSE</Copyright>
-		<PackageTags>1.0.0</PackageTags>
+		<Copyright></Copyright>
+		<PackageTags>1.1.0</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
-		<AssemblyVersion>1.0.0</AssemblyVersion>
-		<FileVersion>1.0.0</FileVersion>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
+		<FileVersion>1.1.0</FileVersion>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReleaseNotes>Converting extension methods to normal ones in tools and adding some new extensions.</PackageReleaseNotes>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Include="..\README.md">
