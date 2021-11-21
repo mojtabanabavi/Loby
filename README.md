@@ -1,5 +1,5 @@
 # loby
-Lobby is an open-source, cross-platform and lightweight library (smaller than 50 kb) for .Net that includes a set of tools and extensions for easy and fast development.
+Lobby is an open-source and lightweight library for .Net that includes a set of tools and extensions for easy and fast development.
 
 ## Installation package (.Net Core ≥ 3.1)
 ```shell
@@ -8,7 +8,7 @@ PM> Install-Package Loby
 
 ## Features
 
-### Tools
+### Tools For
 - Converting types
 - Serializing and Deserializing
 - Validating
@@ -18,11 +18,12 @@ PM> Install-Package Loby
 - Converting date
 - Randomizing
 
-### Extensions
+### Extensions For
 - StringExtensions
 - ObjectExtensions
 - IdentityExtensions
 - EnumExtensions
+- MathExtensions
 - EnumerableExtensions
 
 ## Samples
@@ -98,10 +99,6 @@ A set of methods for date conversions along with other practical methods.
     // Custom - based on culture name
     var toCanadaDate = Dater.ToSolar(dateTime, format: "yyyy/MMMM/dd", culture: "ca");
     var fromCanadaDate = Dater.FromSolar(toCanadaDate, culture: "ca");
-
-    // Using Extentions
-    var toTargetDate = dateTime.ToSolar("yyyy/MMMM/dd", culture: "ar");
-    var fromTargetDate = toTargetDate.FromSolar(culture: "ar");
 ```
 ### Loby.Randomizer
 Represents a pseudo-random data generator, which is an algorithm that produces a sequence of data that meet certain statistical requirements for randomness.
@@ -150,9 +147,4 @@ Represents a pseudo-random data generator, which is an algorithm that produces a
     string randomWords_2 = Randomizer.RandomWords(minCount: 3, maxCount: 5);
             
     // Plus too many other methods (explore).
-```
-### Loby.Convertor
-Provides functionality to convert objects to another types.
-```csharp
-    Samples comming soon...
 ```
