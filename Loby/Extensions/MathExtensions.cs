@@ -1,8 +1,11 @@
 ﻿using System;
 
-namespace Loby
+namespace Loby.Extensions
 {
-    public static class Mather
+    /// <summary>
+    /// A set of extensions for easier math operations.
+    /// </summary>
+    public static class MathExtensions
     {
         /// <summary>
         /// Rounds a <see cref="float"/> value to a specified number of fractional
