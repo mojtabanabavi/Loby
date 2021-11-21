@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Loby
 {
-    public static class Convertor
+    public class Convertor
     {
         #region String
 
@@ -29,7 +29,7 @@ namespace Loby
         /// value represents a number that is less than <see cref="Int32.MinValue"/> or greater
         /// than System.Int32.MaxValue.
         /// </exception>
-        public static int ToInt(this string value)
+        public static int ToInt(string value)
         {
             return Convert.ToInt32(value);
         }
@@ -44,7 +44,7 @@ namespace Loby
         /// A 32-bit signed integer that is equivalent to the number in value, or 0 (zero)
         /// if value is null -or- not convertable.
         /// </returns>
-        public static int ToIntOrDefault(this string value)
+        public static int ToIntOrDefault(string value)
         {
             int.TryParse(value, out int result);
 
@@ -69,7 +69,7 @@ namespace Loby
         /// value represents a number that is less than <see cref="Int64.MinValue"/> or greater
         /// than <see cref="Int64.MaxValue"/>.
         /// </exception>
-        public static long ToLong(this string value)
+        public static long ToLong(string value)
         {
             return Convert.ToInt64(value);
         }
@@ -86,7 +86,7 @@ namespace Loby
         /// A 64-bit signed integer that is equivalent to the number in value, or 0 (zero)
         /// if value is null -or- not convertable.
         /// </returns>
-        public static long ToLongOrDefault(this string value)
+        public static long ToLongOrDefault(string value)
         {
             long.TryParse(value, out long result);
 
@@ -110,7 +110,7 @@ namespace Loby
         /// value represents a number that is less than System.Decimal.MinValue or greater
         /// than System.Decimal.MaxValue.
         /// </exception>
-        public static decimal ToDecimal(this string value)
+        public static decimal ToDecimal(string value)
         {
             return Convert.ToDecimal(value);
         }
@@ -126,7 +126,7 @@ namespace Loby
         /// A decimal that is equivalent to the number in value, or 0 (zero)
         /// if value is null -or- not convertable.
         /// </returns>
-        public static decimal ToDecimalOrDefault(this string value)
+        public static decimal ToDecimalOrDefault(string value)
         {
             decimal.TryParse(value, out decimal result);
 
@@ -162,7 +162,7 @@ namespace Loby
         /// <returns>
         /// A new instance of the <see cref="Uri"/> based on the specified <paramref name="uri"/>.
         /// </returns>
-        public static Uri ToUri(this string uri)
+        public static Uri ToUri(string uri)
         {
             return new Uri(uri);
         }
@@ -183,7 +183,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// The value of System.Text.Encoding is null.
         /// </exception>
-        public static byte[] ToBytes(this string value, Encoding encoding = null)
+        public static byte[] ToBytes(string value, Encoding encoding = null)
         {
             if (encoding == null)
             {
@@ -212,7 +212,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// The bytes is null.
         /// </exception>
-        public static string ToString(this byte[] bytes, Encoding encoding = null)
+        public static string ToString(byte[] bytes, Encoding encoding = null)
         {
             if (encoding == null)
             {
@@ -238,14 +238,14 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// The value is null.
         /// </exception>
-        public static string ToBase64(this string value, Encoding encoding = null)
+        public static string ToBase64(string value, Encoding encoding = null)
         {
             if (encoding == null)
             {
                 encoding = Encoding.UTF8;
             }
 
-            return Convert.ToBase64String(value.ToBytes(encoding));
+            return Convert.ToBase64String(ToBytes(value, encoding));
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace Loby
         /// than two padding characters, or a non-white space-character among the padding
         /// characters.
         /// </exception>
-        public static byte[] FromBase64(this string value)
+        public static byte[] FromBase64(string value)
         {
             return Convert.FromBase64String(value);
         }
@@ -293,7 +293,7 @@ namespace Loby
         /// <exception cref="CultureNotFoundException">
         /// Culture is not supported -or- not found.
         /// </exception>
-        public static string ToNativeDigits(this string value, string sourceCultureName, string destinationCultureName)
+        public static string ToNativeDigits(string value, string sourceCultureName, string destinationCultureName)
         {
             if (value is null)
             {
@@ -340,7 +340,7 @@ namespace Loby
         /// This conversion is not supported. -or- value is null and conversionType is a
         /// value type. -or- value does not implement the <see cref="IConvertible"/> interface.
         /// </exception>
-        public static T ChangeType<T>(this object value)
+        public static T ChangeType<T>(object value)
         {
             Type conversionType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
@@ -371,7 +371,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// value -or- culture is null.
         /// </exception>
-        public static string ToCurrency<T>(this T value, string culture = "en-us") where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
+        public static string ToCurrency<T>(T value, string culture = "en-us") where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
         {
             return value.ToString("C0", new CultureInfo(culture));
         }
@@ -397,7 +397,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// Value -or- culture is null.
         /// </exception>
-        public static string ToNumeric<T>(this T value, string culture = "en-us") where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
+        public static string ToNumeric<T>(T value, string culture = "en-us") where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
         {
             return value.ToString("N0", new CultureInfo(culture));
         }
@@ -418,7 +418,7 @@ namespace Loby
         /// A dictionary created from an enum which the key is the number assigned to each item and value 
         /// is <see cref="DescriptionAttribute.Description"/>, if its defined; otherwise its the name of item.
         /// </returns>
-        public static Dictionary<int, string> ToDictionary(this Enum value)
+        public static Dictionary<int, string> ToDictionary(Enum value)
         {
             return Enum
                 .GetValues(value.GetType())

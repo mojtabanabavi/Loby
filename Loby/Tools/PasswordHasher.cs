@@ -7,7 +7,7 @@ namespace Loby
     /// <summary>
     /// An implementation of PBKDF2 hash algorithm.
     /// </summary>
-    public static class PasswordHasher
+    public class PasswordHasher
     {
         public static readonly int SaltSize = 16;
         public static readonly int Iterations = 10000;

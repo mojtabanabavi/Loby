@@ -9,7 +9,7 @@ namespace Loby
     /// <summary>
     /// A set of methods for date conversions along with other practical methods.
     /// </summary>
-    public static class Dater
+    public class Dater
     {
         #region Convert
 
@@ -41,7 +41,7 @@ namespace Loby
         /// <exception cref="CultureNotFoundException">
         /// Culture is not supported -or- not found.
         /// </exception>
-        public static string ToSolar(this DateTime dateTime, string format = "yyyy/MM/dd", string culture = "en-us")
+        public static string ToSolar(DateTime dateTime, string format = "yyyy/MM/dd", string culture = "en-us")
         {
             return dateTime.ToString(format, new CultureInfo(culture));
         }
@@ -65,9 +65,9 @@ namespace Loby
         /// <exception cref="CultureNotFoundException">
         /// Culture is not supported -or- not found.
         /// </exception>
-        public static DateTime FromSolar(this string dateTime, string culture = "en-us")
+        public static DateTime FromSolar(string dateTime, string culture = "en-us")
         {
-            dateTime = dateTime.ToNativeDigits(culture, "en-us");
+            dateTime = Convertor.ToNativeDigits(dateTime, culture, "en-us");
 
             return DateTime.Parse(dateTime, new CultureInfo(culture));
         }
@@ -89,7 +89,7 @@ namespace Loby
         /// <exception cref="FormatException">
         /// The format parameter is not recognized or not supported.
         /// </exception>
-        public static string ToIranSolar(this DateTime dateTime, string format = "yyyy/MM/dd")
+        public static string ToIranSolar(DateTime dateTime, string format = "yyyy/MM/dd")
         {
             return ToSolar(dateTime, format, "fa-ir");
         }
@@ -111,7 +111,7 @@ namespace Loby
         /// <exception cref="FormatException">
         /// The format parameter is not recognized or not supported.
         /// </exception>
-        public static string ToAfghanistanSolar(this DateTime dateTime, string format = "yyyy/MM/dd")
+        public static string ToAfghanistanSolar(DateTime dateTime, string format = "yyyy/MM/dd")
         {
             return ToSolar(dateTime, format, "fa-af");
         }
@@ -129,7 +129,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// dateTime is null.
         /// </exception>
-        public static DateTime FromIranSolar(this string dateTime)
+        public static DateTime FromIranSolar(string dateTime)
         {
             return FromSolar(dateTime, "fa-ir");
         }
@@ -147,7 +147,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// dateTime is null.
         /// </exception>
-        public static DateTime FromAfghanistanSolar(this string dateTime)
+        public static DateTime FromAfghanistanSolar(string dateTime)
         {
             return FromSolar(dateTime, "fa-af");
         }
@@ -168,7 +168,7 @@ namespace Loby
         /// <exception cref="FormatException">
         /// The format parameter is not recognized or not supported.
         /// </exception>
-        public static string Format(this TimeSpan time, string format = "hh:mm:ss")
+        public static string Format(TimeSpan time, string format = "hh:mm:ss")
         {
             return time.ToString(format?.Replace(":", "\\:"));
         }
@@ -184,7 +184,7 @@ namespace Loby
         /// <exception cref="ArgumentOutOfRangeException">
         /// The date and time is outside the range of dates supported.
         /// </exception>
-        public static double ToUnixTimeStamp(this DateTime dateTime)
+        public static double ToUnixTimeStamp(DateTime dateTime)
         {
             return dateTime.Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
         }
@@ -202,7 +202,7 @@ namespace Loby
         /// <exception cref="ArgumentOutOfRangeException">
         /// The date and time is outside the range of dates supported.
         /// </exception>
-        public static DateTime ToDateTime(this long unixTimeSeconds)
+        public static DateTime ToDateTime(long unixTimeSeconds)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(unixTimeSeconds);
         }
@@ -221,16 +221,16 @@ namespace Loby
         /// <exception cref="FormatException">
         /// The value of System.String object is not in correct format (00:00:00).
         /// </exception>
-        public static TimeSpan ToTimeSpan(this string value)
+        public static TimeSpan ToTimeSpan(string value)
         {
-            value = value.NormalizeDateTime(':');
+            value = NormalizeDateTime(value, ':');
 
             if (!Regex.Match(value, @"\d{2}:\d{2}:\d{2}").Success)
                 throw new FormatException("Value must be in 00:00:00 format.");
 
             var splited = value.Split(':');
 
-            return new TimeSpan(splited[0].ToInt(), splited[1].ToInt(), splited[2].ToInt());
+            return new TimeSpan(Convertor.ToInt(splited[0]), Convertor.ToInt(splited[1]), Convertor.ToInt(splited[2]));
         }
 
         #endregion;
@@ -253,7 +253,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// The value of System.String objects is null.
         /// </exception>
-        private static string NormalizeDateTime(this string value, char separator = '/')
+        private static string NormalizeDateTime(string value, char separator = '/')
         {
             return value
                 .Trim()
@@ -276,7 +276,7 @@ namespace Loby
         /// <exception cref="ArgumentOutOfRangeException">
         /// The date and time is outside the range of dates supported.
         /// </exception>
-        public static DateTime FirstDayOfMonth(this DateTime date)
+        public static DateTime FirstDayOfMonth(DateTime date)
         {
             return new DateTime(date.Year, date.Month, 1);
         }
@@ -291,7 +291,7 @@ namespace Loby
         /// <exception cref="ArgumentOutOfRangeException">
         /// The date and time is outside the range of dates supported.
         /// </exception>
-        public static DateTime LastDayOfMonth(this DateTime date)
+        public static DateTime LastDayOfMonth(DateTime date)
         {
             return new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
         }
@@ -313,7 +313,7 @@ namespace Loby
         /// <exception cref="ArgumentNullException">
         /// The list is null.
         /// </exception>
-        public static List<DateTime> FindMissingDates(this IEnumerable<DateTime> availableDates, DateTime startingDate, DateTime endingDate)
+        public static List<DateTime> FindMissingDates(IEnumerable<DateTime> availableDates, DateTime startingDate, DateTime endingDate)
         {
             availableDates = availableDates.Distinct();
 
