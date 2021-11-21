@@ -93,7 +93,7 @@ namespace Loby
 
             var serializer = new XmlSerializer(typeof(Type));
 
-            return Convertor.ChangeType<Type>(serializer.Deserialize(stream));
+            return serializer.Deserialize(stream).As<Type>();
         }
     }
 }

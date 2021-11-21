@@ -74,7 +74,7 @@ namespace Loby
 
             if (claimValue != null)
             {
-                return Convertor.ChangeType<T>(claimValue);
+                return claimValue.As<T>();
             }
 
             return default(T);
