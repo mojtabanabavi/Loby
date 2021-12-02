@@ -131,8 +131,7 @@ namespace Loby
         /// </exception>
         public static string Right(this string value, int length)
         {
-            //return value.Length > length ? value.Substring(value.Length - length) : value;
-            return value.Length > length ? value[^length..] : value;
+            return value.Length > length ? value.Substring(value.Length - length) : value;
         }
 
         /// <summary>
@@ -233,7 +232,7 @@ namespace Loby
         {
             foreach (var item in values)
             {
-                if (value.Contains(item, comparisonType))
+                if (value.IndexOf(item, comparisonType) >= 0)
                     return true;
             }
 
@@ -261,7 +260,7 @@ namespace Loby
         {
             foreach (var item in values)
             {
-                if (value.Contains(item, comparisonType))
+                if (value.IndexOf(item.ToString(), comparisonType) >= 0)
                     return true;
             }
 
@@ -377,7 +376,7 @@ namespace Loby
         {
             foreach (var item in values)
             {
-                if (value.StartsWith(item))
+                if (value.StartsWith(item.ToString()))
                     return true;
             }
 

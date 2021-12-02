@@ -63,7 +63,7 @@ namespace Loby
         {
             var randomBytes = RandomBytes(4);
 
-            int generatedInt = BitConverter.ToInt32(randomBytes);
+            int generatedInt = BitConverter.ToInt32(randomBytes,0);
 
             return Math.Abs(generatedInt);
         }
@@ -142,7 +142,7 @@ namespace Loby
         {
             var randomBytes = RandomBytes(8);
 
-            long generatedLong = BitConverter.ToInt64(randomBytes);
+            long generatedLong = BitConverter.ToInt64(randomBytes, 0);
 
             return Math.Abs(generatedLong);
         }
@@ -438,7 +438,7 @@ namespace Loby
 
             var randomWords = LoremIpsum
                 .Replace(",", string.Empty)
-                .Split(" ")
+                .Split(' ')
                 .Shuffle()
                 .Take(RandomInt(minCount, maxCount))
                 .Join(separatorCharacter);

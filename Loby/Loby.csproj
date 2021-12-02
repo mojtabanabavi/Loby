@@ -1,29 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Description>Lobby is an open-source and lightweight library (smaller than 50 kb) for .Net  that includes a set of tools and extensions for easy and fast development.
-		</Description>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Product>Loby</Product>
+		<PackageId>Loby</PackageId>
 		<Authors>Mojtaba Nabavi</Authors>
-		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<PackageProjectUrl>https://github.com/mojtabanabavi/loby</PackageProjectUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/mojtabanabavi/loby</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<Version>1.1.0</Version>
-		<Company />
-		<Copyright></Copyright>
-		<PackageTags>1.1.0</PackageTags>
-		<NeutralLanguage>en</NeutralLanguage>
-		<AssemblyVersion>1.1.0</AssemblyVersion>
-		<FileVersion>1.1.0</FileVersion>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Copyright>Copyright © Mojtaba Nabavi 2021</Copyright>
+		<Description>
+			Lobby is an open-source and lightweight library for .Net that includes
+			a set of tools and extensions for easy and fast development.
+			For more information see: https://www.nuget.org/packages/Loby/
+		</Description>
+
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReleaseNotes>Converting extension methods to normal ones in tools and adding some new extensions.</PackageReleaseNotes>
+		<RepositoryUrl>https://github.com/mojtabanabavi/loby</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/mojtabanabavi/loby</PackageProjectUrl>
+		<PackageReleaseNotes>https://github.com/mojtabanabavi/loby/releases/tag/v1.1.0</PackageReleaseNotes>
+
+		<PackageTags>loby extensions tools email random convert hash validate serialize pluralize singularize</PackageTags>
+
+		<Version>1.2.0</Version>
+		<FileVersion>1.2.0</FileVersion>
+		<AssemblyVersion>1.2.0</AssemblyVersion>
+
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net472</TargetFrameworks>
 	</PropertyGroup>
-	<ItemGroup>
-	  <None Include="..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net472' ">
+		<PackageReference Include="System.Text.Json" Version="6.0.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
 </Project>

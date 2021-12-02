@@ -11,7 +11,6 @@ namespace Loby
     {
         public static readonly int SaltSize = 16;
         public static readonly int Iterations = 10000;
-        public static readonly HashAlgorithmName hashAlgorithmName = HashAlgorithmName.SHA256;
 
         /// <summary>
         /// Returns a hashed representation of the supplied <paramref name="value"/>
@@ -23,7 +22,7 @@ namespace Loby
         /// </returns>
         public static string Hash(string value)
         {
-            var hasher = new Rfc2898DeriveBytes(value, SaltSize, Iterations, hashAlgorithmName);
+            var hasher = new Rfc2898DeriveBytes(value, SaltSize, Iterations);
 
             var hashString = GenerateHashString(hasher);
 
@@ -42,7 +41,7 @@ namespace Loby
         {
             var saltBytes = Convert.FromBase64String(hashedValue).Take(SaltSize).ToArray();
 
-            var hasher = new Rfc2898DeriveBytes(providedValue, saltBytes, Iterations, hashAlgorithmName);
+            var hasher = new Rfc2898DeriveBytes(providedValue, saltBytes, Iterations);
 
             var hashString = GenerateHashString(hasher);
 

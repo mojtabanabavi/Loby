@@ -65,13 +65,14 @@ namespace Loby
         /// </returns>
         public static string ToXml(object value)
         {
-            using var stream = new StringWriter();
+            using (var stream = new StringWriter())
+            {
+                var serializer = new XmlSerializer(value.GetType());
 
-            var serializer = new XmlSerializer(value.GetType());
+                serializer.Serialize(stream, value);
 
-            serializer.Serialize(stream, value);
-
-            return stream.ToString();
+                return stream.ToString();
+            }
         }
 
         /// <summary>
@@ -89,11 +90,12 @@ namespace Loby
         /// </returns>
         public static Type FromXml<Type>(string value)
         {
-            using var stream = new StringReader(value);
+            using (var stream = new StringReader(value))
+            {
+                var serializer = new XmlSerializer(typeof(Type));
 
-            var serializer = new XmlSerializer(typeof(Type));
-
-            return serializer.Deserialize(stream).As<Type>();
+                return serializer.Deserialize(stream).As<Type>();
+            }
         }
     }
 }
