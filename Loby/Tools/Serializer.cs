@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using Loby.Extensions;
 using System.Text.Json;
 using System.Xml.Serialization;
 
-namespace Loby
+namespace Loby.Tools
 {
     /// <summary>
     /// Provides functionality to serialize objects or value types to JSON, XML and to deserialize

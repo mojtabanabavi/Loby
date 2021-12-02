@@ -1,6 +1,7 @@
 ﻿using System;
+using Loby.Tools;
 
-namespace Loby
+namespace Loby.Extensions
 {
     public static class ObjectExtensions
     {

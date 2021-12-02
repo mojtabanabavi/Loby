@@ -1,8 +1,9 @@
 ﻿using System;
+using Loby.Tools;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Loby
+namespace Loby.Extensions
 {
     public static class EnumerableExtensions
     {

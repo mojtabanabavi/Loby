@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Text;
 using System.Linq;
+using Loby.Extensions;
 using System.Globalization;
 using System.ComponentModel;
 using System.Collections.Generic;
 
-namespace Loby
+namespace Loby.Tools
 {
     public class Convertor
     {

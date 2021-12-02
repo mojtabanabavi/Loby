@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Loby
+namespace Loby.Tools
 {
     /// <summary>
     /// Provides functionality to pluralize and singularize any english word.

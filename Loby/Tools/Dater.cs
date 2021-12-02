@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Loby
+namespace Loby.Tools
 {
     /// <summary>
     /// A set of methods for date conversions along with other practical methods.

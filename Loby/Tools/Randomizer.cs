@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Drawing;
+using Loby.Extensions;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
-namespace Loby
+namespace Loby.Tools
 {
     /// <summary>
     /// Represents a pseudo-random data generator, which is an algorithm that produces

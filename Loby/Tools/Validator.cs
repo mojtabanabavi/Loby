@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Loby
+namespace Loby.Tools
 {
     /// <summary>
     /// Includes a set of practical methods for validation.

@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Collections.Generic;
 
-namespace Loby
+namespace Loby.Extensions
 {
     /// <summary>
     /// Extensions to get the user claim values from identity.

@@ -2,10 +2,11 @@
 using System.Net;
 using System.Linq;
 using System.Net.Mail;
+using Loby.Extensions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Loby
+namespace Loby.Tools
 {
     /// <summary>
     /// Allows applications to send email by using the 
