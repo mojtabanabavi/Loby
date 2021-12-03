@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Loby.Tools
@@ -48,8 +49,29 @@ namespace Loby.Tools
         /// as <see cref="PagingResult{T}"/>, which provides more information 
         /// about pagination.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// source is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// page -or- pageSize is equal or less than 0.
+        /// </exception>
         public static PagingResult<T> ApplyPaging<T>(IQueryable<T> source, int page, int pageSize)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source is null.");
+            }
+
+            if (page <= 0)
+            {
+                throw new ArgumentOutOfRangeException("page is equal or less than 0.");
+            }
+
+            if (pageSize <= 0)
+            {
+                throw new ArgumentOutOfRangeException("pageSize is equal or less than 0.");
+            }
+
             int totalItems = source.Count();
 
             var result = new PagingResult<T>
@@ -84,6 +106,12 @@ namespace Loby.Tools
         /// as <see cref="PagingResult{T}"/>, which provides more information 
         /// about pagination.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// source is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// page -or- pageSize is equal or less than 0.
+        /// </exception>
         public static PagingResult<T> ApplyPaging<T>(IEnumerable<T> source, int page, int pageSize)
         {
             return ApplyPaging(source.AsQueryable(), page, pageSize);
