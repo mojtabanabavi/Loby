@@ -3,6 +3,7 @@ using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Loby.Extensions;
 
 namespace Loby.Tools
 {
@@ -67,7 +68,7 @@ namespace Loby.Tools
         /// </exception>
         public static DateTime FromSolar(string dateTime, string culture = "en-us")
         {
-            dateTime = Convertor.ToNativeDigits(dateTime, culture, "en-us");
+            dateTime = dateTime.ToNativeDigits(culture, "en-us");
 
             return DateTime.Parse(dateTime, new CultureInfo(culture));
         }
@@ -230,7 +231,7 @@ namespace Loby.Tools
 
             var splited = value.Split(':');
 
-            return new TimeSpan(Convertor.ToInt(splited[0]), Convertor.ToInt(splited[1]), Convertor.ToInt(splited[2]));
+            return new TimeSpan(Convert.ToInt32(splited[0]), Convert.ToInt32(splited[1]), Convert.ToInt32(splited[2]));
         }
 
         #endregion;

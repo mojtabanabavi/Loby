@@ -1,12 +1,133 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Loby.Extensions
 {
-    public static class StringExtensions
+    public static class StringExtensions 
     {
+        #region Convert
+
+        /// <summary>
+        /// encodes all the characters in the specified string into a sequence of bytes base on encoding.
+        /// if encoding is null, the default value is <see cref="Encoding.UTF8"/>.
+        /// </summary>
+        /// <param name="value">
+        /// The string containing characters to encode.
+        /// </param>
+        /// <param name="encoding">
+        /// The target encoding format. default value is <see cref="Encoding.UTF8"/>.
+        /// </param>
+        /// <returns>
+        /// A byte array containing the results of encoding the specified set of characters.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// The value of System.Text.Encoding is null.
+        /// </exception>
+        public static byte[] ToBytes(this string value, Encoding encoding = null)
+        {
+            if (encoding == null)
+            {
+                encoding = Encoding.UTF8;
+            }
+
+            return encoding.GetBytes(value);
+        }
+
+        /// <summary>
+        /// Converts an array of 8-bit unsigned integers to its equivalent string representation
+        /// that is encoded with base-64 digits.
+        /// </summary>
+        /// <param name="value">
+        /// The string containing characters to encode.
+        /// </param>
+        /// <param name="encoding">
+        /// The target encoding format. default value is <see cref="Encoding.UTF8"/>.
+        /// </param>
+        /// <returns>
+        /// The string representation, in base-64 of the contents of inArray.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// The value is null.
+        /// </exception>
+        public static string ToBase64(this string value, Encoding encoding = null)
+        {
+            if (encoding == null)
+            {
+                encoding = Encoding.UTF8;
+            }
+
+            return Convert.ToBase64String(ToBytes(value, encoding));
+        }
+
+        /// <summary>
+        /// Converts the specified string, which encodes binary data as base-64 digits, to
+        /// an equivalent 8-bit unsigned integer array.
+        /// </summary>
+        /// <param name="value">
+        /// The string to convert.
+        /// </param>
+        /// <returns>
+        /// An array of 8-bit unsigned integers that is equivalent to <paramref name="value"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// The value is null.
+        /// </exception>
+        /// <exception cref="FormatException">
+        /// The length of <paramref name="value"/>, ignoring white-space characters, is not zero or a multiple of
+        /// 4. -or- The format of s is invalid. <paramref name="value"/> contains a non-base-64 character, more
+        /// than two padding characters, or a non-white space-character among the padding
+        /// characters.
+        /// </exception>
+        public static byte[] FromBase64(this string value)
+        {
+            return Convert.FromBase64String(value);
+        }
+
+        /// <summary>
+        /// Converts the digits of input to its equivalent string
+        /// representation using the culture-specific format informations.
+        /// </summary>
+        /// <param name="value">
+        /// </param>
+        /// <param name="sourceCultureName">
+        /// A string that supplies culture-specific formatting name. It is not case-sensitive.
+        /// </param>
+        /// <param name="destinationCultureName">
+        /// A string that supplies culture-specific formatting name. It is not case-sensitive.
+        /// </param>
+        /// <returns>
+        /// A string representing numbers in the destination culture.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// The name of source or destination culture is null.
+        /// </exception>
+        /// <exception cref="CultureNotFoundException">
+        /// Culture is not supported -or- not found.
+        /// </exception>
+        public static string ToNativeDigits(this string value, string sourceCultureName, string destinationCultureName)
+        {
+            if (value is null)
+            {
+                return null;
+            }
+
+            var sourceCulture = CultureInfo.GetCultureInfo(sourceCultureName);
+            var destinationCulture = CultureInfo.GetCultureInfo(destinationCultureName);
+
+            for (int i = 0; i <= 9; i++)
+            {
+                value = value.Replace(sourceCulture.NumberFormat.NativeDigits[i], destinationCulture.NumberFormat.NativeDigits[i]);
+            }
+
+            return value;
+        }
+
+        #endregion;
+
         #region Value
 
         /// <summary>

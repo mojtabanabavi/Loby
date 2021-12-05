@@ -1,5 +1,4 @@
 ﻿using System;
-using Loby.Tools;
 
 namespace Loby.Extensions
 {
@@ -52,7 +51,9 @@ namespace Loby.Extensions
         /// </exception>
         public static T As<T>(this object value)
         {
-            return Convertor.ChangeType<T>(value);
+            Type conversionType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+
+            return (T)Convert.ChangeType(value, conversionType);
         }
 
         #endregion;
