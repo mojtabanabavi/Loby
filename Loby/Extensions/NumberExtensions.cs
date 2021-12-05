@@ -5,7 +5,7 @@ namespace Loby.Extensions
     /// <summary>
     /// A set of extensions for easier math operations.
     /// </summary>
-    public static class MathExtensions
+    public static class NumberExtensions
     {
         /// <summary>
         /// Rounds a <see cref="float"/> value to a specified number of fractional
