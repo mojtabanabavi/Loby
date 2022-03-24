@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Loby.Extensions
 {
-    public static class StringExtensions 
+    public static class StringExtensions
     {
         #region Convert
 
@@ -325,6 +325,32 @@ namespace Loby.Extensions
             }
 
             return output;
+        }
+
+        /// <summary>
+        /// Converts the specified string to title case (except for words that are entirely
+        /// in uppercase, which are considered to be acronyms) based on given culture name.
+        /// </summary>
+        /// <param name="value">
+        /// The string to convert to title case.
+        /// </param>
+        /// <param name="culture">
+        /// A string that supplies culture-specific formatting name.
+        /// </param>
+        /// <returns>
+        /// The specified string converted to title case.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// value -or- culture is null.
+        /// </exception>
+        /// <exception cref="CultureNotFoundException">
+        /// Culture is not supported -or- not found.
+        /// </exception>
+        public static string ToTitleCase(this string value, string culture = "en-us")
+        {
+            var cultureTextInfo = new CultureInfo(culture).TextInfo;
+
+            return cultureTextInfo.ToTitleCase(value.ToLower());
         }
 
         #endregion;
