@@ -152,6 +152,41 @@ namespace Loby.Extensions
             return list.Aggregate((sentence, next) => next + character + sentence);
         }
 
+        /// <summary>
+        /// Returns distinct elements from a sequence by using the provided 
+        /// key selector to compare values.
+        /// </summary>
+        /// <typeparam name="TSource">
+        /// The type of the elements of source.
+        /// </typeparam>
+        /// <typeparam name="TKey">
+        /// The type of the key returned by keySelector.
+        /// </typeparam>
+        /// <param name="source">
+        /// The sequence to remove duplicate elements from.
+        /// </param>
+        /// <param name="keySelector">
+        /// A function to extract the key for each element.
+        /// </param>
+        /// <returns>
+        /// An <see cref="IEnumerable{TSource}"/> that contains distinct elements from the source sequence.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// source is null.
+        /// </exception>
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> seenKeys = new HashSet<TKey>();
+
+            foreach (TSource element in source)
+            {
+                if (seenKeys.Add(keySelector(element)))
+                {
+                    yield return element;
+                }
+            }
+        }
+
         #endregion;
     }
 }
