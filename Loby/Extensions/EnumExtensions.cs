@@ -41,8 +41,10 @@ namespace Loby.Extensions
         /// <param name="value">
         /// </param>
         /// <returns>
-        /// The value of <see cref="DescriptionAttribute.Description"/> that is used on current object.
-        /// Returns null, if current object doest have any <see cref="DescriptionAttribute"/>.
+        /// The value of <see cref="DescriptionAttribute.Description"/> that is 
+        /// used on current object.
+        /// Returns an string representation of <paramref name="value"/>, 
+        /// if current object doest have any <see cref="DescriptionAttribute"/>.
         /// </returns>
         public static string GetDescription(this Enum value)
         {
@@ -52,7 +54,7 @@ namespace Loby.Extensions
                 .GetCustomAttributes<DescriptionAttribute>(false)
                 .FirstOrDefault();
 
-            return attribute?.Description;
+            return attribute != null ? attribute.Description : value.ToString();
         }
 
         /// <summary>
