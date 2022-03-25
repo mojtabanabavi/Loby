@@ -134,7 +134,7 @@ namespace Loby.Extensions
         /// <param name="list">
         /// The list whose elements are going to be combined with the specified separator.
         /// </param>
-        /// <param name="character">
+        /// <param name="delimiter">
         /// The character to be placed among the elements.
         /// </param>
         /// <returns>
@@ -147,9 +147,33 @@ namespace Loby.Extensions
         /// <exception cref="InvalidOperationException">
         /// list contains no elements.
         /// </exception>
-        public static string Join(this IEnumerable<string> list, char character)
+        public static string Join(this IEnumerable<string> list, char delimiter)
         {
-            return list.Aggregate((sentence, next) => next + character + sentence);
+            return list.Aggregate((sentence, next) => next + delimiter + sentence);
+        }
+
+        /// <summary>
+        /// Combines all elements of the list with the specified separator.
+        /// </summary>
+        /// <param name="list">
+        /// The list whose elements are going to be combined with the specified separator.
+        /// </param>
+        /// <param name="delimiter">
+        /// The string to be placed among the elements.
+        /// </param>
+        /// <returns>
+        /// A new string instance created from a combination of specified list elements 
+        /// and character among them. 
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// list is null.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// list contains no elements.
+        /// </exception>
+        public static string Join(this IEnumerable<string> list, string delimiter)
+        {
+            return list.Aggregate((sentence, next) => next + delimiter + sentence);
         }
 
         /// <summary>
