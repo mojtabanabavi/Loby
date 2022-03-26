@@ -3,31 +3,26 @@
 		<Product>Loby</Product>
 		<PackageId>Loby</PackageId>
 		<Authors>Mojtaba Nabavi</Authors>
-		<Copyright>Copyright © Mojtaba Nabavi 2022</Copyright>
-		<Description>Loby is a free, lightweight and open-source library for .Net that includes a set of tools and extensions for easy and fast development. For more information see: https://github.com/mojtabanabavi/loby
-		</Description>
+		<Copyright>Copyright © Mojtaba Nabavi 2021</Copyright>
+		<Description>Loby is a free, lightweight and open-source library that includes a set of tools and extensions for easy and fast development. For more information see: https://github.com/mojtabanabavi/loby</Description>
 
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/mojtabanabavi/loby</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/mojtabanabavi/loby</PackageProjectUrl>
-		<PackageReleaseNotes>https://github.com/mojtabanabavi/loby/releases/tag/v1.3.0</PackageReleaseNotes>
+		<PackageReleaseNotes>https://github.com/mojtabanabavi/loby/releases/tag/v1.4.0</PackageReleaseNotes>
 
-		<PackageTags>loby extensions tools csharp dotnet dotnetcore email random convert hash validate paginate singularize pluralize serialize</PackageTags>
+		<PackageTags>loby extensions tools csharp dotnet dotnetcore email smtp random convert dateTime date time hash password validation pagination singularize pluralize</PackageTags>
 
-		<Version>1.3.0</Version>
-		<FileVersion>1.3.0</FileVersion>
-		<AssemblyVersion>1.3.0</AssemblyVersion>
-		
+		<Version>1.4.0</Version>
+		<FileVersion>1.4.0</FileVersion>
+		<AssemblyVersion>1.4.0</AssemblyVersion>
+
 		<RepositoryType>git</RepositoryType>
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net472</TargetFrameworks>
+		<TargetFrameworks>net47;netstandard2.0;netcoreapp3.1;net5.0</TargetFrameworks>
 	</PropertyGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net472' ">
-		<PackageReference Include="System.Text.Json" Version="6.0.0" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\README.md">
@@ -35,5 +30,4 @@
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
-
 </Project>
