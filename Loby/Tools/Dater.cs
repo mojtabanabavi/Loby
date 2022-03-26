@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Loby.Extensions;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Loby.Extensions;
 
 namespace Loby.Tools
 {
