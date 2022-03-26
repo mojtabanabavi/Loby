@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Linq;
+using System.Text;
 using System.Net.Mail;
 using Loby.Extensions;
+using Loby.Tools.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -16,72 +18,166 @@ namespace Loby.Tools
     {
         #region Members
 
-        private string _from;
         private SmtpClient _client;
-
-        public enum ClientTypes
-        {
-            Gmail = 1,
-            Yahoo = 2,
-        }
+        private MailAddress _sender;
+        public MailerSettings _settings;
+        public readonly string Versian = "2.0";
 
         #endregion;
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Mailer"/> class that
-        /// sends email by using the specified SMTP server, port and credential.
+        /// Initializes a new instance of the <see cref="Mailer"/> 
+        /// based on <paramref name="settings"/>.
         /// </summary>
-        /// <param name="host">
-        /// A string that contains the name or IP address of the host used for SMTP
-        /// transactions.
+        /// <param name="settings">
+        /// An instance of <see cref="MailerSettings"/> that contain 
+        /// setting of how to send email.
         /// </param>
-        /// <param name="port">
-        /// A number greater than zero that contains the port to be used on host.
-        /// </param>
-        /// <param name="username">
-        /// The user name associated with the SMTP server credentials.
-        /// </param>
-        /// <param name="password">
-        /// The password for the user name associated with SMTP server the credentials.
-        /// </param>
-        public Mailer(string host, int port, string username, string password)
+        /// <exception cref="ArgumentNullException">
+        /// settings is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// settings.Host is null or empty.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// settings.Port is less than or equal to zero.
+        /// </exception>
+        public Mailer(MailerSettings settings)
         {
-            _from = username;
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings), "is null.");
+            }
+
+            if (!settings.Host.HasValue())
+            {
+                throw new ArgumentException(nameof(settings.Host), "is null or empty.");
+            }
+
+            if (settings.Port <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(settings.Port), "is less than or equal to zero.");
+            }
+
+            _settings = settings;
+
+            ConfigureMailer();
+        }
+
+        #endregion;
+
+        #region Configures
+
+        /// <summary>
+        /// Applying settings in current instance of mailer.
+        /// </summary>
+        /// <param name="settings">
+        /// An instance of <see cref="MailerSettings"/> that contain 
+        /// setting of how to send email.
+        /// </param>
+        private void ConfigureMailer()
+        {
+            var senderEmail =
+                _settings.SenderEmailAddress ?? _settings.Username;
+
+            _sender =
+                new MailAddress(senderEmail, _settings.SenderDisplayName ?? senderEmail, Encoding.UTF8);
 
             _client = new SmtpClient
             {
-                Host = host,
-                Port = port,
-                EnableSsl = true,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(username, password)
+                Host = _settings.Host,
+                Port = _settings.Port,
+                EnableSsl = _settings.EnableSsl,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = _settings.UseDefaultCredentials,
             };
+
+            if (!_settings.UseDefaultCredentials)
+            {
+                _client.Credentials =
+                    new NetworkCredential(_settings.Username, _settings.Password);
+            }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Mailer"/> class by using predefined configurations
-        /// according to <paramref name="clientType"/>.
+        /// Creates a new instance of <see cref="MailMessage"/> based on
+        /// inputs and default settings.
         /// </summary>
-        /// <param name="clientType">
-        /// The type of SMTP client that settings are applied according to it.
+        /// <param name="recipient">
+        /// A string that contains the address for sending message to it.
         /// </param>
-        /// <param name="username">
-        /// The user name associated with the SMTP server credentials.
+        /// <param name="subject">
+        /// A string that contains the subject line for the message.
         /// </param>
-        /// <param name="password">
-        /// The password for the user name associated with SMTP server the credentials.
+        /// <param name="body">
+        /// A string that contains the message body.
         /// </param>
-        public Mailer(ClientTypes clientType, string username, string password)
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">
+        /// recipient is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// recipient contains an invalid email address.
+        /// </exception>
+        private MailMessage ConfigureMailMessage(string recipient, string subject, string body)
         {
-            _from = username;
+            return ConfigureMailMessage(new string[] { recipient }, subject, body);
+        }
 
-            switch (clientType)
+        /// <summary>
+        /// Creates a new instance of <see cref="MailMessage"/> based on
+        /// inputs and default settings.
+        /// </summary>
+        /// <param name="recipients">
+        /// A collection of recipient addresses for sending message to them.
+        /// </param>
+        /// <param name="subject">
+        /// A string that contains the subject line for the message.
+        /// </param>
+        /// <param name="body">
+        /// A string that contains the message body.
+        /// </param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">
+        /// recipients is null or empty.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// recipients contains one or more invalid email address.
+        /// </exception>
+        private MailMessage ConfigureMailMessage(IEnumerable<string> recipients, string subject, string body)
+        {
+            if (recipients.IsNull())
             {
-                case ClientTypes.Gmail: _client = GetGmailClient(username, password); break;
-                case ClientTypes.Yahoo: _client = GetYahooClient(username, password); break;
+                throw new ArgumentException(nameof(recipients), "is null or empty.");
             }
+
+            if (!IsValidEmails(recipients))
+            {
+                throw new ArgumentException(nameof(recipients), "contains one or more invalid email address.");
+            }
+
+            var _recipients = recipients.Join(',');
+
+            var message = new MailMessage()
+            {
+                Body = body,
+                From = _sender,
+                Sender = _sender,
+                Subject = subject,
+                IsBodyHtml = true,
+                Priority = MailPriority.High,
+                BodyEncoding = Encoding.UTF8,
+                SubjectEncoding = Encoding.UTF8,
+            };
+
+            message.To.Add(_recipients);
+
+            message.Headers.Add("Agent", "Loby.Mailer");
+            message.Headers.Add("Agent.Version", Versian);
+
+            return message;
         }
 
         #endregion;
@@ -230,158 +326,6 @@ namespace Loby.Tools
             var mail = ConfigureMailMessage(recipients, subject, body);
 
             return _client.SendMailAsync(mail);
-        }
-
-        #endregion;
-
-        #region Clients
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SmtpClient"/> that fits 
-        /// the gmail smtp server settings.
-        /// </summary>
-        /// <param name="username">
-        /// Your email address in the Gmail service.
-        /// </param>
-        /// <param name="password">
-        /// The password associated to your gmail account.
-        /// </param>
-        /// <returns>
-        /// Returns An instance of <see cref="SmtpClient"/> that fits 
-        /// the gmail smtp server settings.
-        /// </returns>
-        public SmtpClient GetGmailClient(string username, string password)
-        {
-            var client = new SmtpClient
-            {
-                Port = 587,
-                EnableSsl = true,
-                Host = "smtp.gmail.com",
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(username, password)
-            };
-
-            return client;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SmtpClient"/> that fits 
-        /// the yahoo smtp server settings.
-        /// </summary>
-        /// <param name="username">
-        /// Your email address in the Yahoo service.
-        /// </param>
-        /// <param name="password">
-        /// The password associated to your Yahoo account.
-        /// </param>
-        /// <returns>
-        /// Returns An instance of <see cref="SmtpClient"/> that fits 
-        /// the Yahoo smtp server settings.
-        /// </returns>
-        public SmtpClient GetYahooClient(string username, string password)
-        {
-            var client = new SmtpClient
-            {
-                Port = 587,
-                EnableSsl = true,
-                Host = "smtp.mail.yahoo.com",
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(username, password)
-            };
-
-            return client;
-        }
-
-        #endregion;
-
-        #region Configures
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MailMessage"/> based on
-        /// inputs and default settings.
-        /// </summary>
-        /// <param name="recipient">
-        /// A string that contains the address for sending message to it.
-        /// </param>
-        /// <param name="subject">
-        /// A string that contains the subject line for the message.
-        /// </param>
-        /// <param name="body">
-        /// A string that contains the message body.
-        /// </param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">
-        /// recipient is null.
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// recipient contains an invalid email address.
-        /// </exception>
-        private MailMessage ConfigureMailMessage(string recipient, string subject, string body)
-        {
-            if (recipient.IsNull())
-            {
-                throw new ArgumentNullException(nameof(recipient), "is null.");
-            }
-
-            if (!Validator.IsValidEmail(recipient))
-            {
-                throw new ArgumentException(nameof(recipient), "contains an invalid email address.");
-            }
-
-            var mail = new MailMessage(_from, recipient)
-            {
-                Body = body,
-                Subject = subject,
-                IsBodyHtml = true,
-                Priority = MailPriority.High,
-            };
-
-            return mail;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="MailMessage"/> based on
-        /// inputs and default settings.
-        /// </summary>
-        /// <param name="recipients">
-        /// A collection of recipient addresses for sending message to them.
-        /// </param>
-        /// <param name="subject">
-        /// A string that contains the subject line for the message.
-        /// </param>
-        /// <param name="body">
-        /// A string that contains the message body.
-        /// </param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">
-        /// recipients is null or empty.
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// recipients contains one or more invalid email address.
-        /// </exception>
-        private MailMessage ConfigureMailMessage(IEnumerable<string> recipients, string subject, string body)
-        {
-            if (recipients.IsNull())
-            {
-                throw new ArgumentException(nameof(recipients), "is null or empty.");
-            }
-
-            if (!IsValidEmails(recipients))
-            {
-                throw new ArgumentException(nameof(recipients), "contains one or more invalid email address.");
-            }
-
-            var _recipients = recipients.Join(',');
-
-            var mail = new MailMessage(_from, _recipients)
-            {
-                Body = body,
-                Subject = subject,
-                IsBodyHtml = true,
-                Priority = MailPriority.High,
-            };
-
-            return mail;
         }
 
         #endregion;
