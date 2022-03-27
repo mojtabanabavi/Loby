@@ -1,30 +1,35 @@
 # Loby
-Loby is a free and open-source library for .Net that includes a set of tools and extensions for easy and fast development. you can follow the **[tutorials](https://github.com/mojtabanabavi/loby/wiki)** to learn how to use it.
 
-[![NuGet version](https://img.shields.io/nuget/v/loby.svg?style=flat&label=nuget)](https://www.nuget.org/packages/Loby/) 
-[![Nuget Downloads](https://img.shields.io/nuget/dt/loby.svg?color=blue&label=Downloads)](https://www.nuget.org/packages/Loby/)
+## About
+
+**Loby** is a free, useful and open-source library that includes a set of tools for converting dates, sending emails, paginating, validating, pluralizing words, singularizing words, generating random items, etc. along with some extension methods for easy and fast development. 
+
+## Documentation
+
+Visit the **[documentation](https://github.com/mojtabanabavi/loby/wiki)** for details on how to use the features in Loby.
 
 ## Installation package
+
 Nuget Package Manager:
 ```shell
-PM> Install-Package Loby
+PM> Install-Package Loby -Version 2.0.0
 ```
 .NET CLI:
 ```ps
-PS> dotnet add package Loby
+PS> dotnet add package Loby --version 2.0.0
 ```
 
 ## Benefits and features
+
+* Easy installation
 * Free and open-source
-* Easy installation using Nuget
-* Includes useful tools for hashing, converting dates and etc.
+* Includes useful tools such as:
     * Dater
     * Mailer
     * Paginator
     * PasswordHasher
     * Pluralizer
     * Randomizer
-    * Serializer
     * Validator
 * Includes useful extensions for:
     * Byte
@@ -34,4 +39,5 @@ PS> dotnet add package Loby
     * IQueryable
     * Number
     * Object
+    * Reflection
     * String

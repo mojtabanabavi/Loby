@@ -1,21 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Product>Loby</Product>
-		<PackageId>Loby</PackageId>
+		<Company>$(Authors)</Company>
 		<Authors>Mojtaba Nabavi</Authors>
+		<Product>$(AssemblyName)</Product>
+		<PackageId>$(AssemblyName)</PackageId>
 		<Copyright>Copyright © Mojtaba Nabavi 2021</Copyright>
-		<Description>Loby is a free, lightweight and open-source library that includes a set of tools and extensions for easy and fast development. For more information see: https://github.com/mojtabanabavi/loby</Description>
+		<Description>Loby is a free, useful and open-source library that includes a set of tools for converting dates, sending emails, paginating, validating, pluralizing words, singularizing words, generating random items, etc. along with some extension methods for easy and fast development. For more information see: https://github.com/mojtabanabavi/loby</Description>
 
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/mojtabanabavi/loby</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/mojtabanabavi/loby</PackageProjectUrl>
-		<PackageReleaseNotes>https://github.com/mojtabanabavi/loby/releases/tag/v1.4.0</PackageReleaseNotes>
-
+		<PackageReleaseNotes>https://github.com/mojtabanabavi/loby/releases/tag/v2.0.0</PackageReleaseNotes>
 		<PackageTags>loby extensions tools csharp dotnet dotnetcore email smtp random convert dateTime date time hash password validation pagination singularize pluralize</PackageTags>
 
-		<Version>1.4.0</Version>
-		<FileVersion>1.4.0</FileVersion>
-		<AssemblyVersion>1.4.0</AssemblyVersion>
+		<Version>2.0.0</Version>
+		<FileVersion>2.0.0</FileVersion>
+		<AssemblyVersion>2.0.0</AssemblyVersion>
 
 		<RepositoryType>git</RepositoryType>
 		<NeutralLanguage>en</NeutralLanguage>
