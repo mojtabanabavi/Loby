@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Loby.Tools.Models;
 using System.Collections.Generic;
 
 namespace Loby.Tools
@@ -9,25 +10,6 @@ namespace Loby.Tools
     /// </summary>
     public class Paginator
     {
-        #region Members
-
-        /// <summary>
-        /// Any instance of this class holds the pagination result 
-        /// by <see cref="Paginator"/>.
-        /// </summary>
-        /// <typeparam name="T">
-        /// Type of sequence elements.
-        /// </typeparam>
-        public class PagingResult<T>
-        {
-            public IEnumerable<T> Items { get; set; }
-            public int TotalItems { get; set; }
-            public int TotalPages { get; set; }
-            public int CurrentPage { get; set; }
-        }
-
-        #endregion;
-
         /// <summary>
         /// Paginates a set of elements based on <paramref name="page"/> 
         /// and <paramref name="pageSize"/>.
