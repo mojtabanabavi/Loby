@@ -8,8 +8,6 @@ namespace Loby.Tools
     /// </summary>
     public class Validator
     {
-        #region Emails
-
         /// <summary>
         /// Indicates whether the specified string represent a valid 
         /// email address or not.
@@ -26,10 +24,6 @@ namespace Loby.Tools
 
             return Regex.IsMatch(value, pattern);
         }
-
-        #endregion;
-
-        #region Urls
 
         /// <summary>
         /// Indicates whether the specified string represent a valid url or not.
@@ -104,7 +98,5 @@ namespace Loby.Tools
 
             return Regex.IsMatch(value, pattern);
         }
-
-        #endregion;
     }
 }
