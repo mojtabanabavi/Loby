@@ -1,11 +1,7 @@
 ﻿using System;
-using Loby.Tools;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Loby.Tools.Models
+namespace Loby.Tools
 {
     /// <summary>
     /// Any instance of this class holds the pagination result 

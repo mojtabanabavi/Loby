@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Net;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
-namespace Loby.Tools.Models
+namespace Loby.Tools
 {
     public class MailerSettings
     {
@@ -56,6 +52,5 @@ namespace Loby.Tools.Models
         /// An string that contains a display name as sender email address.
         /// </summary>
         public string SenderDisplayName { get; set; }
-
     }
 }
