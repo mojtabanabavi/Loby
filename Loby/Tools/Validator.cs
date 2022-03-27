@@ -45,6 +45,22 @@ namespace Loby.Tools
             return Regex.IsMatch(url, pattern);
         }
 
+        /// <summary>
+        /// Indicates whether the specified string represent a valid number or not.
+        /// </summary>
+        /// <param name="number">
+        /// The number to test.
+        /// </param>
+        /// <returns>
+        /// true if the value parameter is a valid number; otherwise, false.
+        /// </returns>
+        public static bool IsValidNumber(string number)
+        {
+            var pattern = @"^[-+]?[0-9]*\.?[0-9]+$";
+
+            return Regex.IsMatch(number, pattern);
+        }
+
         #endregion;
     }
 }
