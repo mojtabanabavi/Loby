@@ -12,7 +12,7 @@
 		<RepositoryUrl>https://github.com/mojtabanabavi/loby</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/mojtabanabavi/loby</PackageProjectUrl>
 		<PackageReleaseNotes>https://github.com/mojtabanabavi/loby/releases/tag/v2.0.0</PackageReleaseNotes>
-		<PackageTags>loby extensions tools csharp dotnet dotnetcore email smtp random convert dateTime date time hash password validation pagination singularize pluralize</PackageTags>
+		<PackageTags>loby csharp dotnet dotnetcore extensions pagination validation datetime email random validator password email-sender paginator singularize pluralize email-notification pluralizer convert-dates randomizer random-generator singularizer hash-passwords</PackageTags>
 
 		<Version>2.0.0</Version>
 		<FileVersion>2.0.0</FileVersion>
