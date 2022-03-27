@@ -10,6 +10,8 @@ namespace Loby.Tools
     /// </summary>
     public class Paginator
     {
+        public static readonly string Versian = "1.1";
+
         /// <summary>
         /// Paginates a set of elements based on <paramref name="page"/> 
         /// and <paramref name="pageSize"/>.
@@ -54,15 +56,24 @@ namespace Loby.Tools
                 throw new ArgumentOutOfRangeException("pageSize is equal or less than 0.");
             }
 
-            int totalItems = source.Count();
+            var totalItems = source.Count();
 
             var result = new PagingResult<T>
             {
                 CurrentPage = page,
+                PageSize = pageSize,
                 TotalItems = totalItems,
                 Items = source.Skip((page - 1) * pageSize).Take(pageSize),
-                TotalPages = (double)totalItems / pageSize % 1 == 0 ? totalItems / pageSize : totalItems / pageSize + 1
+                TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
             };
+
+            result.TotalFilteredItems = result.Items.Count();
+
+            result.IsFirstPage = result.CurrentPage == 1;
+            result.IsLastPage = result.CurrentPage == result.TotalPages;
+
+            result.HasNextPage = result.CurrentPage < result.TotalPages;
+            result.HasPreviousPage = result.CurrentPage > 1;
 
             return result;
         }
