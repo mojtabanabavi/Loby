@@ -16,7 +16,9 @@ namespace Loby.Tools
         /// Returns a hashed representation of the supplied <paramref name="value"/>
         /// using PBKDF2 hash algorithm with 16 bytes salt and 10000 iterations.
         /// </summary>
-        /// <param name="value">The value to hash.</param>
+        /// <param name="value">
+        /// The value to hash.
+        /// </param>
         /// <returns>
         /// A hashed representation of the supplied <paramref name="value"/>.
         /// </returns>
@@ -32,8 +34,12 @@ namespace Loby.Tools
         /// <summary>
         /// Returns a flag that indicating the result of a value hash comparison.
         /// </summary>
-        /// <param name="hashedValue">The hash value that is stored.</param>
-        /// <param name="providedValue">The value supplied for comparison.</param>
+        /// <param name="hashedValue">
+        /// The hash value that is stored.
+        /// </param>
+        /// <param name="providedValue">
+        /// The value supplied for comparison.
+        /// </param>
         /// <returns>
         /// A flag that indicating the result of a value hash comparison.
         /// </returns>
@@ -51,7 +57,9 @@ namespace Loby.Tools
         /// <summary>
         /// Create a base64 string representation of hashed value.
         /// </summary>
-        /// <param name="hasher">PBKDF2 key derivation (Rfc2898).</param>
+        /// <param name="hasher">
+        /// PBKDF2 key derivation (Rfc2898).
+        /// </param>
         /// <returns>
         /// A base64 string representation of hashed value.
         /// </returns>
