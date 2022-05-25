@@ -33,6 +33,7 @@ PS> dotnet add package Loby --version 2.0.0
     * Validator
 * Includes useful extensions for:
     * Byte
+    * Dictionary
     * Enumerable
     * Enum
     * Identity
